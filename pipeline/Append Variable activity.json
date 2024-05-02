@@ -1,0 +1,27 @@
+{
+	"name": "Append Variable activity",
+	"properties": {
+		"description": "Use the Append Variable activity to add a value to an existing array variable defined in a Data Factory or Synapse Analytics pipeline.",
+		"activities": [
+			{
+				"name": "act_append_var",
+				"type": "AppendVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "test_append",
+					"value": {
+						"value": "@{range(0,9)}",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"variables": {
+			"test_append": {
+				"type": "Array"
+			}
+		},
+		"annotations": []
+	}
+}
