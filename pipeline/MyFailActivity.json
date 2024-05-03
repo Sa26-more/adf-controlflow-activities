@@ -1,0 +1,18 @@
+{
+	"name": "MyFailActivity",
+	"properties": {
+		"activities": [
+			{
+				"name": "Fail1",
+				"type": "Fail",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"message": "500",
+					"errorCode": "My Custom Error Message"
+				}
+			}
+		],
+		"annotations": []
+	}
+}
