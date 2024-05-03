@@ -20,7 +20,7 @@
 						"type": "DatasetReference"
 					},
 					"fieldList": [
-						"childItems"
+						"lastModified"
 					],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
@@ -30,8 +30,37 @@
 						"type": "BinaryReadSettings"
 					}
 				}
+			},
+			{
+				"name": "act_set_var",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Get Metadata1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "last_modified_date",
+					"value": {
+						"value": "@formatDateTime(activity('Get Metadata1').output.lastModified,'yyyy-MM-dd')",
+						"type": "Expression"
+					}
+				}
 			}
 		],
+		"variables": {
+			"last_modified_date": {
+				"type": "String"
+			}
+		},
 		"annotations": []
 	}
 }
