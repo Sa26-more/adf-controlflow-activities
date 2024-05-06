@@ -1,0 +1,45 @@
+{
+	"name": "dataflow1_to_infer_schema",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ds_Parquet1_adlsgen2",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [],
+			"transformations": [
+				{
+					"name": "window1"
+				},
+				{
+					"name": "derivedColumn1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          Rank as integer,",
+				"          Team as string,",
+				"          Wins as long,",
+				"          Points as double,",
+				"          season as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     inferDriftedColumnTypes: true,",
+				"     limit: 10,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'parquet') ~> source1",
+				"source1 window(over(season),",
+				"     asc(Rank, true),",
+				"     Position = rowNumber()) ~> window1",
+				"window1 derive() ~> derivedColumn1"
+			]
+		}
+	}
+}
