@@ -12,13 +12,21 @@
 					"name": "source1"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "ds_AzurePostgreSqlTable1",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
 			"transformations": [
 				{
 					"name": "window1"
 				},
 				{
-					"name": "derivedColumn1"
+					"name": "select1"
 				}
 			],
 			"scriptLines": [
@@ -38,7 +46,27 @@
 				"source1 window(over(season),",
 				"     asc(Rank, true),",
 				"     Position = rowNumber()) ~> window1",
-				"window1 derive() ~> derivedColumn1"
+				"window1 select(mapColumn(",
+				"          Position,",
+				"          Team,",
+				"          Wins,",
+				"          Points,",
+				"          season",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"select1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     stagingSchemaName: 'public',",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     recreate:true,",
+				"     format: 'table',",
+				"     preSQLs:['CREATE TABLE IF NOT EXISTS PUBLIC.STANDING;'],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
 			]
 		}
 	}
