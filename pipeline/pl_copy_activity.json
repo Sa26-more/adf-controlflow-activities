@@ -18,7 +18,7 @@
 					"source": {
 						"type": "SnowflakeV2Source",
 						"query": {
-							"value": "select * from \"TPCH_SF1\".\"NATION\" LIMIT 100;",
+							"value": "select * from \"TPCH_SF1\".\"NATION\" LIMIT 100",
 							"type": "Expression"
 						},
 						"exportSettings": {
@@ -31,19 +31,77 @@
 							}
 						}
 					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": true,
+						"tableOption": "autoCreate",
+						"disableMetricsCollection": false
+					},
 					"enableStaging": true,
 					"stagingSettings": {
 						"linkedServiceName": {
-							"referenceName": "AzureDataLakeStorage1",
+							"referenceName": "ls_azureblobstorage",
 							"type": "LinkedServiceReference"
 						},
 						"path": "input",
 						"enableCompression": true
+					},
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "N_NATIONKEY",
+									"type": "Int64"
+								},
+								"sink": {
+									"name": "N_NATIONKEY",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "N_NAME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "N_NAME",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "N_REGIONKEY",
+									"type": "Int64"
+								},
+								"sink": {
+									"name": "N_REGIONKEY",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "N_COMMENT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "N_COMMENT",
+									"type": "String"
+								}
+							}
+						]
 					}
 				},
 				"inputs": [
 					{
 						"referenceName": "ds_SnowflakeTable1",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_AzureSqlTable1",
 						"type": "DatasetReference"
 					}
 				]
