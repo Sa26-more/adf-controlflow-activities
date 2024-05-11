@@ -1,5 +1,5 @@
 {
-	"name": "pl_copy_activity",
+	"name": "pl_copy_activity_snow_sql_database",
 	"properties": {
 		"activities": [
 			{
