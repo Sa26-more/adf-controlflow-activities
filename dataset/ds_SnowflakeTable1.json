@@ -1,0 +1,37 @@
+{
+	"name": "ds_SnowflakeTable1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_Snowflake1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SnowflakeV2Table",
+		"schema": [
+			{
+				"name": "N_NATIONKEY",
+				"type": "NUMBER",
+				"precision": 38,
+				"scale": 0
+			},
+			{
+				"name": "N_NAME",
+				"type": "VARCHAR"
+			},
+			{
+				"name": "N_REGIONKEY",
+				"type": "NUMBER",
+				"precision": 38,
+				"scale": 0
+			},
+			{
+				"name": "N_COMMENT",
+				"type": "VARCHAR"
+			}
+		],
+		"typeProperties": {
+			"schema": "TPCH_SF1",
+			"table": "NATION"
+		}
+	}
+}
