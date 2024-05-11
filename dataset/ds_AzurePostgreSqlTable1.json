@@ -8,7 +8,7 @@
 		"parameters": {
 			"table_nm": {
 				"type": "String",
-				"defaultValue": "STANDING"
+				"defaultValue": "book"
 			}
 		},
 		"annotations": [],

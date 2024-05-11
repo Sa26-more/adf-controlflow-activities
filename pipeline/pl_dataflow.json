@@ -20,9 +20,12 @@
 						"type": "DataFlowReference",
 						"datasetParameters": {
 							"sink1": {
-								"table_nm": "STANDING"
+								"table_nm": "book"
 							}
 						}
+					},
+					"staging": {
+						"folderPath": ""
 					},
 					"compute": {
 						"coreCount": 8,

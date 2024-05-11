@@ -6,7 +6,7 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "ds_Parquet1_adlsgen2",
+						"referenceName": "ds_Json1",
 						"type": "DatasetReference"
 					},
 					"name": "source1"
@@ -21,52 +21,39 @@
 					"name": "sink1"
 				}
 			],
-			"transformations": [
-				{
-					"name": "window1"
-				},
-				{
-					"name": "select1"
-				}
-			],
+			"transformations": [],
 			"scriptLines": [
 				"source(output(",
-				"          Rank as integer,",
-				"          Team as string,",
-				"          Wins as long,",
-				"          Points as double,",
-				"          season as string",
+				"          Id as integer,",
+				"          Books as string,",
+				"          Authors as string,",
+				"          Language as string,",
+				"          First_Published as string,",
+				"          Sales_in_millions as double",
 				"     ),",
-				"     allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     inferDriftedColumnTypes: true,",
+				"     allowSchemaDrift: false,",
+				"     validateSchema: true,",
 				"     limit: 10,",
 				"     ignoreNoFilesFound: false,",
-				"     format: 'parquet') ~> source1",
-				"source1 window(over(season),",
-				"     asc(Rank, true),",
-				"     Position = rowNumber()) ~> window1",
-				"window1 select(mapColumn(",
-				"          Position,",
-				"          Team,",
-				"          Wins,",
-				"          Points,",
-				"          season",
-				"     ),",
-				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> select1",
-				"select1 sink(allowSchemaDrift: true,",
+				"     documentForm: 'documentPerLine') ~> source1",
+				"source1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     stagingSchemaName: 'public',",
 				"     deletable:false,",
 				"     insertable:true,",
 				"     updateable:false,",
 				"     upsertable:false,",
 				"     recreate:true,",
 				"     format: 'table',",
-				"     preSQLs:['CREATE TABLE IF NOT EXISTS PUBLIC.STANDING;'],",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> sink1"
+				"     skipDuplicateMapOutputs: true,",
+				"     mapColumn(",
+				"          Id,",
+				"          Books,",
+				"          Authors,",
+				"          Language,",
+				"          First_Published,",
+				"          Sales_in_millions",
+				"     )) ~> sink1"
 			]
 		}
 	}
