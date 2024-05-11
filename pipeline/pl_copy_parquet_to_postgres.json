@@ -1,0 +1,6 @@
+{
+	"name": "pl_copy_parquet_to_postgres",
+	"properties": {
+		"annotations": []
+	}
+}
