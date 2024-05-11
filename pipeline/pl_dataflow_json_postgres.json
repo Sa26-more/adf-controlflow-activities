@@ -1,0 +1,40 @@
+{
+	"name": "pl_dataflow_json_postgres",
+	"properties": {
+		"activities": [
+			{
+				"name": "dataflow1_to_infer_schema",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "dataflow1_to_infer_schema",
+						"type": "DataFlowReference",
+						"datasetParameters": {
+							"sink1": {
+								"table_nm": "book"
+							}
+						}
+					},
+					"staging": {
+						"folderPath": ""
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			}
+		],
+		"annotations": []
+	}
+}

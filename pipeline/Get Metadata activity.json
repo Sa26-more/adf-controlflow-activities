@@ -1,0 +1,66 @@
+{
+	"name": "Get Metadata activity",
+	"properties": {
+		"activities": [
+			{
+				"name": "Get Metadata1",
+				"type": "GetMetadata",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "ds_binary_adls_gen2",
+						"type": "DatasetReference"
+					},
+					"fieldList": [
+						"lastModified"
+					],
+					"storeSettings": {
+						"type": "AzureBlobFSReadSettings",
+						"enablePartitionDiscovery": false
+					},
+					"formatSettings": {
+						"type": "BinaryReadSettings"
+					}
+				}
+			},
+			{
+				"name": "act_set_var",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Get Metadata1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "last_modified_date",
+					"value": {
+						"value": "@formatDateTime(activity('Get Metadata1').output.lastModified,'yyyy-MM-dd')",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"variables": {
+			"last_modified_date": {
+				"type": "String"
+			}
+		},
+		"annotations": []
+	}
+}

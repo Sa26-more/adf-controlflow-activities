@@ -1,0 +1,40 @@
+{
+	"name": "ds_Parquet1_adlsgen2",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileSystem": "input"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "Rank",
+				"type": "INT32"
+			},
+			{
+				"name": "Team",
+				"type": "UTF8"
+			},
+			{
+				"name": "Wins",
+				"type": "INT64"
+			},
+			{
+				"name": "Points",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "season",
+				"type": "UTF8"
+			}
+		]
+	}
+}

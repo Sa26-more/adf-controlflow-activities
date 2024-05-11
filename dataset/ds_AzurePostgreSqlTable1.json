@@ -1,0 +1,25 @@
+{
+	"name": "ds_AzurePostgreSqlTable1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_AzurePostgreSql1",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"table_nm": {
+				"type": "String",
+				"defaultValue": "book"
+			}
+		},
+		"annotations": [],
+		"type": "AzurePostgreSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "public",
+			"table": {
+				"value": "@dataset().table_nm",
+				"type": "Expression"
+			}
+		}
+	}
+}

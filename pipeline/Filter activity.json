@@ -1,0 +1,36 @@
+{
+	"name": "Filter activity",
+	"properties": {
+		"activities": [
+			{
+				"name": "Filter1",
+				"type": "Filter",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@variables('AnimalArray')",
+						"type": "Expression"
+					},
+					"condition": {
+						"value": "@not(equals(item(),'bear'))",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"variables": {
+			"AnimalArray": {
+				"type": "Array",
+				"defaultValue": [
+					"dog",
+					"cat",
+					"tiger",
+					"fox",
+					"bear"
+				]
+			}
+		},
+		"annotations": []
+	}
+}

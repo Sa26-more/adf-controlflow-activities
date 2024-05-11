@@ -1,0 +1,42 @@
+{
+	"name": "child_pipeline",
+	"properties": {
+		"activities": [
+			{
+				"name": "act_set_var",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "pipelineReturnValue",
+					"value": [
+						{
+							"key": "number",
+							"value": {
+								"type": "Expression",
+								"content": "@range(2,50)"
+							}
+						}
+					],
+					"setSystemVariable": true
+				}
+			}
+		],
+		"variables": {
+			"append": {
+				"type": "Array"
+			},
+			"some_number": {
+				"type": "Array"
+			},
+			"redw": {
+				"type": "Array"
+			}
+		},
+		"annotations": []
+	}
+}
